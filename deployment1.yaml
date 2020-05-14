@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
@@ -26,20 +26,6 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
-        volumeMounts:
-        - name: secret-volume
-          mountPath: "/etc/secret"
-          readOnly: true
-        env:
-        - name: SECRET_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysecret
-              key: password
-      volumes:
-      - name: secret-volume
-        secret:
-          secretName: mysecret
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
